@@ -15,10 +15,6 @@ module.exports = class Chimplate {
         this.initParsers();
     }
 
-    _resafe(str) {
-        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-    }
-
     polyfill() {
         // fs.existsSync polyfill, due to deprecation
         if(!_.has(fs, 'existsSync')) {
@@ -52,6 +48,25 @@ module.exports = class Chimplate {
         }
     }
 
+    // Internal utility functions
+    _resafe(str) {
+        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    }
+
+    // Basic template function handlers
+    _FN_DATE(format) {
+        return '';// TODO: php -> moment date template format
+    }
+
+    _FN_UPPER(str, vars = null) {
+        return _.get(vars, str, '').toUpperCase();
+    }
+
+    _FN_LOWER(str, vars = null) {
+        return _.get(vars, str, '').toLowerCase();
+    }
+
+    // Compile template
     compile(vars = null, template = null) {
         if(template) {
             this.template = template;
@@ -66,8 +81,15 @@ module.exports = class Chimplate {
             compiled = compiled.replace(re, _.get(vars, key, ''));
         });
 
-        // TODO: Substitute function output
-        //
+        // Substitute function output
+        compiled = compiled.replace(/\*\|([A-Z]+)\:([^*|]*)\|\*/g, (m, fn, arg, pos, orig) => {
+            let _fn = `_FN_${fn}`;
+            if(_.get(this, _fn, false) && _.isFunction(this[_fn]) && _.indexOf(this.config.ignoreFuncs, fn) == -1) {
+                return this[_fn](arg, vars);
+            } else {
+                return m;
+            }
+        });
 
         // TODO: Handle blocks and expressions
         //
