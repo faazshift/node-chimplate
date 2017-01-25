@@ -2,9 +2,15 @@
 
 A JavaScript template compiler for Mailchimp and Mandrill templates.
 
+# Install
+
+```BASH
+$ npm install --save chimplate
+```
+
 # Use
 
-```JS
+```javascript
 let chimplate = require('chimplate');
 
 let template = new chimplate();
