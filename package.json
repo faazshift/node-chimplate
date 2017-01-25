@@ -1,5 +1,5 @@
 {
-  "name": "node-chimplate",
+  "name": "chimplate",
   "version": "1.0.0",
   "description": "A JavaScript template compiler for Mailchimp and Mandrill templates",
   "main": "chimplate.js",
