@@ -1,6 +1,6 @@
 {
   "name": "chimplate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A JavaScript template compiler for Mailchimp and Mandrill templates",
   "main": "chimplate.js",
   "scripts": {
