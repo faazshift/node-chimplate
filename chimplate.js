@@ -149,7 +149,7 @@ module.exports = class Chimplate {
                 cfgVars[cfgMatches.shift()] = parseInt(cfgMatches.shift());
             }
 
-            let url = feedUrl.replace('&amp;', '&');
+            let url = feedUrl.replace(/&amp;/g, '&');
             return feedparser.parse(url).catch((err) => {
                 console.error(err);
             }).then((items) => {
