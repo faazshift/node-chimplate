@@ -4,7 +4,7 @@ A JavaScript template compiler for Mailchimp and Mandrill templates.
 
 # Install
 
-```BASH
+```bash
 $ npm install --save chimplate
 ```
 
@@ -33,4 +33,22 @@ let compiled = template.compile({MERGEVAR1: 'Some value'});
 // OR
 template.compile({MERGEVAR1: 'Some value'});
 let compiled = template.get();
+```
+#### FEEDBLOCKs
+
+Althought not fully matured, chimplate has basic ability to process some \*|FEEDBLOCK:\<url\>|\* blocks. To utilize this functionality, instead of calling `template.compile`, you'd call `template.compileRSS`, which returns a Promise. An example:
+
+```javascript
+let template = new chimplate({
+    postStrip: false
+});
+template.setTemplateFromFile('/some/template/file.tpl.html');
+
+template.compileRSS().catch((err) => {
+    console.error(err);
+}).then((output) => {
+    if(output) {
+        console.log(output);
+    }
+});
 ```
