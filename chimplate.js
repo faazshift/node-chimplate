@@ -161,14 +161,14 @@ module.exports = class Chimplate {
                     }
 
                     let itemTpl = feedTpl;
-                    itemTpl = itemTpl.replace('*|FEEDITEM:TITLE|*', _.get(item, 'title', ''));
-                    itemTpl = itemTpl.replace('*|FEEDITEM:URL|*', _.get(item, 'link', ''));
-                    itemTpl = itemTpl.replace('*|FEEDITEM:URL|*', _.get(item, 'link', ''));
+                    itemTpl = itemTpl.replace(/\*\|FEEDITEM:TITLE\|\*/g, _.get(item, 'title', ''));
+                    itemTpl = itemTpl.replace(/\*\|FEEDITEM:URL\|\*/g, _.get(item, 'link', ''));
+                    itemTpl = itemTpl.replace(/\*\|FEEDITEM:AUTHOR\|\*/g, _.get(item, 'author', ''));
 
                     let imgUrl = _.get(item, 'media:content.@.url', null);
                     if(imgUrl) {
                         let img = `<img src="${imgUrl}" />`;
-                        itemTpl = itemTpl.replace('*|FEEDITEM:IMAGE|*', img);
+                        itemTpl = itemTpl.replace(/\*\|FEEDITEM:IMAGE\|\*/g, img);
                     }
 
                     ret += itemTpl;
