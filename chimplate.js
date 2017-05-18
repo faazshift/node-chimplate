@@ -162,6 +162,7 @@ module.exports = class Chimplate {
 
                     let itemTpl = feedTpl;
                     itemTpl = itemTpl.replace(/\*\|FEEDITEM:TITLE\|\*/g, _.get(item, 'title', ''));
+                    itemTpl = itemTpl.replace(/\*\|FEEDITEM:CONTENT\|\*/g, _.get(item, 'description', ''));
                     itemTpl = itemTpl.replace(/\*\|FEEDITEM:URL\|\*/g, _.get(item, 'link', ''));
                     itemTpl = itemTpl.replace(/\*\|FEEDITEM:AUTHOR\|\*/g, _.get(item, 'author', ''));
 
